@@ -24,6 +24,9 @@ const precedent = document.querySelector(".arrow_left");
 const suivant = document.querySelector(".arrow_right");
 const bannerImg = document.querySelector(".banner-img");
 const texte = document.querySelector("#banner p");
+const dots = document.querySelector(".dots");
+
+let interval;
 
 // console.log(slides[0]);
 precedent.addEventListener("click", () => {
@@ -31,37 +34,32 @@ precedent.addEventListener("click", () => {
   texte.innerHTML = slides[slide].tagLine;
   bannerImg.src = `./assets/images/slideshow/${slides[slide].image}`;
   console.log(slide);
-  console.log("left");
+  const allDot = document.querySelectorAll(".dot");
+  allDot.forEach((dot, index) => {
+    dot.classList.toggle("dot_selected", index === slide);
+  });
 });
 
 suivant.addEventListener("click", () => {
   slide = (slide + 1) % slides.length; //change "slide" lorsque la fleche de droite est cliqué
   texte.innerHTML = slides[slide].tagLine; // change le texte par rapport a la valeur de slide.
   bannerImg.src = `./assets/images/slideshow/${slides[slide].image}`; // change l'image par rapport a la valeur de slide.
-  console.log(slide);
-  console.log("right");
+  // updateSlide();
+  const allDot = document.querySelectorAll(".dot");
+  allDot.forEach((dot, index) => {
+    dot.classList.toggle("dot_selected", index === slide);
+  });
 });
 
 //    étape 3 : Ajoutez des bullet points au slider
 
 //Création des dots.
 
-//création d'une constante "dots" qui cible la division ".dots"
-const dots = document.querySelector(".dots");
-
-slides.forEach((dotSelect, index) => {
+slides.forEach(() => {
   // pour chaque slides, tu me fait :
   const dot = document.createElement("div"); //création d'une constante dot en créant une division
   dot.classList.add("dot"); // ajout de la classe "dot"
   dots.appendChild(dot); // ajoute une division avec la classe dot
-});
-// dot.classList.add("dot_selected"); //ajoute la classe dot_selected a toute les dots créé
-
-// console.log(dotSelect);
-const allDot = document.querySelectorAll(".dot");
-console.log(allDot);
-allDot.forEach((dot, index) => {
-  dot.classList.toggle("dot_selected", index === slide);
 });
 
 // étape4 Modifiez le slide au clic sur le bouton
